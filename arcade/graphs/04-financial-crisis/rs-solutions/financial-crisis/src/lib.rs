@@ -1,4 +1,5 @@
 #![feature(test)]
+use std::thread;
 
 extern crate test;
 
@@ -20,9 +21,11 @@ extern crate test;
  */
 
 fn financialCrisisNaive(roadRegister: Vec<Vec<bool>>) -> Vec<Vec<Vec<bool>>> {
-    let mut possibilities = vec![];
-    for i in 0..roadRegister.len() {
-        let possibility: Vec<Vec<bool>> = roadRegister.iter().enumerate()
+    let city_count = roadRegister.len();
+    let mut possibilities: Vec<Vec<Vec<bool>>> = vec![Vec::new(); city_count];
+
+    possibilities.iter_mut().enumerate().for_each(|(i, possibility)| {
+        *possibility = roadRegister.iter().enumerate()
                 .filter(|(index, _row)| index != &i)
                 .map(|(_index, row)| {
                     row.into_iter().enumerate()
@@ -31,8 +34,8 @@ fn financialCrisisNaive(roadRegister: Vec<Vec<bool>>) -> Vec<Vec<Vec<bool>>> {
                         .collect()
                 })
                 .collect();
-        possibilities.push(possibility);
-    }
+    });
+
     possibilities
 }
 

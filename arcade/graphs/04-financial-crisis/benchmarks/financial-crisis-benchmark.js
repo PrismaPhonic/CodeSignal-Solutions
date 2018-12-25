@@ -1,13 +1,6 @@
 const Benchmark = require('benchmark');
 const suite = new Benchmark.Suite;
-const ffi = require('ffi');
 
-// Import JS and RS solutions for benchmarking
-// NOTE: CAN'T FIGURE OUT HOW TO REPRESENT AN ARRAY OF ARRAYS OF BOOLEANS
-// USING REF TYPES
-// const rust = ffi.Library('../rs-solutions/financial-crisis/target/release/libembed.so', {
-//   'financialCrisis': [['Object'], ['Object']]
-// });
 const nodeFinancialCrisis = require('../js-solutions/financial-crisis.js');
 
 const testRegister = 
@@ -22,9 +15,6 @@ const testRegister =
 suite.add('roadRegisterNode#test', function() {
   nodeFinancialCrisis(testRegister);
 })
-// .add('roadRegisterRust#test', function() {
-// 	rust.FinancialCrisis(testRegister);
-// })
 // add listeners
 .on('cycle', function(event) {
   console.log(String(event.target));
