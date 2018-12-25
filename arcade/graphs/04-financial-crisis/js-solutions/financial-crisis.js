@@ -5,6 +5,11 @@ const suite = new Benchmark.Suite;
  * This solution seems niave in time complexity as we are mapping
  * over the input matrix multiple times (one for each possible removal)
  * next solution is more efficient
+ *
+ * Benchmark Results:
+ * roadRegisterNaive#test x 242,311 ops/sec ±1.45% (86 runs sampled)
+ * roadRegisterEfficient#test x 429,924 ops/sec ±1.04% (84 runs sampled)
+ * Fastest is roadRegisterEfficient#test
  */
 
 function financialCrisisNaive(roadRegister) {
