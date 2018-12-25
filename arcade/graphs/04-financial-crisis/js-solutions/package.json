@@ -1,0 +1,16 @@
+{
+  "name": "js-solutions",
+  "version": "1.0.0",
+  "description": "",
+  "main": "financial-crisis.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "benchmark": "^2.1.4",
+    "microtime": "^2.1.8"
+  }
+}
