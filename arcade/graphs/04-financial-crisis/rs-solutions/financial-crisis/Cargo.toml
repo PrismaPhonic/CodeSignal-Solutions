@@ -5,3 +5,13 @@ authors = ["Peter Farr <Peter@PrismaPhonic.com>"]
 edition = "2018"
 
 [dependencies]
+
+[profile.dev]
+opt-level = 3
+
+[profile.release]
+opt-level = 3
+
+[lib]
+name = "embed"
+crate-type = ["dylib"]

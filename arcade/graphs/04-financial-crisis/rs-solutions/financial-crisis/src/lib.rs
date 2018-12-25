@@ -41,7 +41,8 @@ fn financialCrisisNaive(roadRegister: Vec<Vec<bool>>) -> Vec<Vec<Vec<bool>>> {
  * more verbose and not as readable.
  */
 
-fn financialCrisis(roadRegister: Vec<Vec<bool>>) -> Vec<Vec<Vec<bool>>> {
+#[no_mangle]
+pub extern fn financialCrisis(roadRegister: Vec<Vec<bool>>) -> Vec<Vec<Vec<bool>>> {
     let city_count = roadRegister.len();
     let mut possibilities: Vec<Vec<Vec<bool>>> = Vec::new();
 
@@ -114,7 +115,9 @@ mod tests {
             vec![false,false,true,false,true,false]
         ];
 
-        b.iter(|| financialCrisisNaive(testRegister.clone()));
+        b.iter(|| {
+            financialCrisisNaive(testRegister.clone())
+        });
     }
 
     #[bench]
@@ -128,6 +131,8 @@ mod tests {
             vec![false,false,true,false,true,false]
         ];
 
-        b.iter(|| financialCrisis(testRegister.clone()));
+        b.iter(|| {
+            financialCrisis(testRegister.clone())
+        });
     }
 }

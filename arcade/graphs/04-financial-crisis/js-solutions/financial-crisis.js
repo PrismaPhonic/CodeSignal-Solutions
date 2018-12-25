@@ -1,6 +1,3 @@
-const Benchmark = require('benchmark');
-const suite = new Benchmark.Suite;
-
 /**
  * This solution seems niave in time complexity as we are mapping
  * over the input matrix multiple times (one for each possible removal)
@@ -69,27 +66,4 @@ function financialCrisis(roadRegister) {
   return possibilities;
 }
 
-const testRegister = 
-[[false,false,false,false,true,false], 
- [false,false,true,false,true,false], 
- [false,true,false,true,true,true], 
- [false,false,true,false,false,false], 
- [true,true,true,false,false,true], 
- [false,false,true,false,true,false]];
-
-// add tests
-suite.add('roadRegisterNaive#test', function() {
-  financialCrisisNaive(testRegister);
-})
-.add('roadRegisterEfficient#test', function() {
-	financialCrisis(testRegister);
-})
-// add listeners
-.on('cycle', function(event) {
-  console.log(String(event.target));
-})
-.on('complete', function() {
-  console.log('Fastest is ' + this.filter('fastest').map('name'));
-})
-// run async
-.run({ 'async': true });
+module.exports = financialCrisis;
