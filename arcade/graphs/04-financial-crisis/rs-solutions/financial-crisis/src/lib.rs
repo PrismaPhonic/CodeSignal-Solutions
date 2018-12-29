@@ -1,5 +1,7 @@
 #![feature(test)]
 use std::thread;
+use std::sync::{Mutex, Arc};
+use std::rc::Rc;
 
 extern crate test;
 
@@ -20,31 +22,58 @@ extern crate test;
  * )
  */
 
+// fn financialCrisisNaive(roadRegister: Vec<Vec<bool>>) -> Vec<Vec<Vec<bool>>> {
+//     let city_count = roadRegister.len();
+//     let rr = Arc::new(roadRegister);
+//     let mut possibilities: Vec<Vec<Vec<bool>>> = Vec::new();
+//     let mut children = Vec::new();
+//     for i in 0..city_count {
+//         let r1 = Arc::clone(&rr);
+//         children.push(thread::spawn(move || -> Vec<Vec<bool>> {
+//             r1.iter().enumerate()
+//                 .filter(|(index, _row)| index != &i)
+//                 .map(|(_index, row)| {
+//                     row.into_iter().enumerate()
+//                         .filter(|(idx, _city)| idx != &i)
+//                         .map(|(_i, city)| *city)
+//                         .collect()
+//                 })
+//                 .collect()
+//         }));
+//     };
+
+//     for child in children { 
+//         possibilities.push(child.join().unwrap());
+//     }
+
+//     possibilities
+// }
+
 fn financialCrisisNaive(roadRegister: Vec<Vec<bool>>) -> Vec<Vec<Vec<bool>>> {
     let city_count = roadRegister.len();
     let mut possibilities: Vec<Vec<Vec<bool>>> = vec![Vec::new(); city_count];
 
     possibilities.iter_mut().enumerate().for_each(|(i, possibility)| {
         *possibility = roadRegister.iter().enumerate()
-                .filter(|(index, _row)| index != &i)
-                .map(|(_index, row)| {
-                    row.into_iter().enumerate()
-                        .filter(|(idx, _city)| idx != &i)
-                        .map(|(_i, city)| *city)
-                        .collect()
-                })
-                .collect();
+            .filter(|(index, _row)| index != &i)
+            .map(|(_index, row)| {
+                row.into_iter().enumerate()
+                    .filter(|(idx, _city)| idx != &i)
+                    .map(|(_i, city)| *city)
+                    .collect()
+            })
+            .collect();
     });
 
     possibilities
 }
+
 
 /**
  * This solution is better from a performance standpoint but certainly
  * more verbose and not as readable.
  */
 
-#[no_mangle]
 pub extern fn financialCrisis(roadRegister: Vec<Vec<bool>>) -> Vec<Vec<Vec<bool>>> {
     let city_count = roadRegister.len();
     let mut possibilities: Vec<Vec<Vec<bool>>> = Vec::new();
