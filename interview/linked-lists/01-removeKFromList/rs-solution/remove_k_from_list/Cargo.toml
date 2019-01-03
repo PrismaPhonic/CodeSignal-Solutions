@@ -1,0 +1,7 @@
+[package]
+name = "remove_k_from_list"
+version = "0.1.0"
+authors = ["Peter Farr <Peter@PrismaPhonic.com>"]
+edition = "2018"
+
+[dependencies]
