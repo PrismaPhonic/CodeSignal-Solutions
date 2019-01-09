@@ -11,3 +11,4 @@ maxheap, but have included both solutions in the readme.
 
 ## Solutions
 1. [Rust Solution](rs-solution/kth-largest-element)
+2. [Javascript Solution](js-solution/)
