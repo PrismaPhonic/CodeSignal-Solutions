@@ -1,7 +1,4 @@
 fn simplifyPath(path: String) -> String {
-    if path == "/".to_string() {
-        return path;
-    }
     let mut output: Vec<String> = Vec::new();
     for dir in path.split("/") {
         match dir {
