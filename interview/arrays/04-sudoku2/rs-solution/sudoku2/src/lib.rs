@@ -17,8 +17,7 @@ fn check_rows_cols(matrix: &Matrix) -> bool {
         for j in 0..9 {
             let e = matrix[i][j];
             if e != '.' {
-                let num = e.to_digit(10).unwrap();
-                if !row_counts.insert(num) {
+                if !row_counts.insert(e) {
                     return false;
                 }
             }
@@ -26,8 +25,7 @@ fn check_rows_cols(matrix: &Matrix) -> bool {
             if e == '.' {
                 continue;
             }
-            let num = e.to_digit(10).unwrap();
-            if !col_counts.insert(num) {
+            if !col_counts.insert(e) {
                 return false;
             }
         }
@@ -54,8 +52,7 @@ fn check_sub_matrix(row: usize, col: usize, matrix: &Matrix) -> bool {
             if e == '.' {
                 continue;
             }
-            let num = e.to_digit(10).unwrap();
-            if !counts.insert(num) {
+            if !counts.insert(e) {
                 return false;
             }
         }
