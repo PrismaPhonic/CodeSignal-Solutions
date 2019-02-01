@@ -1,41 +1,29 @@
 function sudoku2(grid) {
-  if (!checkRows(grid)) return false;
-  if (!checkColumns(grid)) return false;
-  if (!checkSubGrids(grid)) return false;
-
-  return true;
+  return checkRowsAndColumns(grid) && checkSubgrids(grid)
 }
 
-function checkRows(grid) {
-  for (let row of grid) {
-    let nums = new Set();
-    for (let e of row) {
+function checkRowsAndColumns(grid) {
+  for (let i = 0; i < 9; i++) {
+    let rowCount = new Set();
+    let colCount = new Set();
+    for (let j = 0; j < 9; j++) {
+      let e = grid[i][j];
+      if (e !== '.') {
+        if (rowCount.has(e)) return false;
+        rowCount.add(e);
+      }
+      e = grid[j][i]
       if (e === '.') continue;
-      if (nums.has(e)) return false;
-      nums.add(e);
+      if (colCount.has(e)) return false;
+      colCount.add(e);
     }
   }
   return true;
 }
 
-function checkColumns(grid) {
-  for (let i = 0; i < grid[0].length; i++) {
-    let nums = new Set();
-    for (let j = 0; j < grid.length; j++) {
-      let e = grid[j][i];
-      if (e === '.') continue;
-      if (nums.has(e)) return false;
-      nums.add(e);
-    }
-  }
-  return true;
-}
-
-function checkSubGrids(grid) {
-  // generate starting coordinate for each subgrid and run
-  // each through a sudoku check
-  for (let row = 0; row < grid.length; row += 3) {
-    for (let column = 0; column < grid[0].length; column += 3) {
+function checkSubgrids(grid) {
+  for (let row = 0; row < 9; row += 3) {
+    for (let column = 0; column < 9; column += 3) {
       if (!checkSubGrid(row, column, grid)) return false;
     }
   }
@@ -43,9 +31,9 @@ function checkSubGrids(grid) {
 }
 
 // takes starting coordinates
-function checkSubGrid(row, column, grid) {
+function checkSubgrid(row, column, grid) {
   let nums = new Set();
-  
+
   for (let i = row; i < row + 3; i++) {
     for (let j = column; j < column + 3; j++) {
       let e = grid[i][j];
