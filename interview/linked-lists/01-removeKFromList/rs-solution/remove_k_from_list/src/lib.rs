@@ -1,42 +1,24 @@
-struct List<'a, T> {
-    value: T,
-    next: Option<Box<List<'a, T>>>,
-}
+use std::collections::VecDeque;
 
-impl<'a, T> List<'a, T> {
-    fn new(value: T) -> Self {
-        List { value, next: None }
-    }
-}
-
-type ListNode<'a, T> = Option<Box<List<'a, T>>>;
-
-impl<'a> Iterator for List<'a, i32> {
-    type Item = &'a mut Box<List<'a, i32>>;
-    
-    fn next(&mut self) -> Option<Self::Item> {
-        match &self.next {
-            Some(node_list) => Some(node_list),
-            None => None,
-        }
-    }
-}
-
-
-fn removeKFromList(mut l: ListNode<i32>, k: i32) -> ListNode<i32> {
-    l.iter_mut().for_each(move |node| {
-        if node.next.unwrap().value == k {
-            node.next = node.next.unwrap().next;
-        }
+// Using a VecDeque because this problem is done. There's already built in tooling for this.
+fn remove_k_from_list(l: VecDeque<i32>, k: i32) -> VecDeque<i32> {
+    let mut new = l.clone();
+    new.retain(|num| {
+        *num != k
     });
 
-    l
+    new
 }
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+
     #[test]
-    fn it_works() {
-        assert_eq!(2 + 2, 4);
+    fn test_one() {
+        let input = VecDeque::from(vec![3, 1, 2, 3, 4, 5]);
+        let want = VecDeque::from(vec![1, 2, 4, 5]);
+        let got = remove_k_from_list(input, 3);
+        assert_eq!(got, want);
     }
 }
